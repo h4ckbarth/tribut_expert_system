@@ -5,4 +5,7 @@ class TributBaseFact(Fact):
     tp_mvto = Field(str, mandatory=False)
     car_trib = Field(str, mandatory=False)
 
+    icms_cst = Field(str, mandatory=False)
+    icms_aliquota = Field(float, mandatory=False)
+
     pass

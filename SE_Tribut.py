@@ -1,5 +1,4 @@
 from pyknow import *
-from SE_Operation import SE_Operation
 
 class SE_Tribut(KnowledgeEngine):
     #Variáveis internas
