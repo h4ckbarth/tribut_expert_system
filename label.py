@@ -15,7 +15,7 @@ class Label(GameObject):
 
     def draw(self):
         self.update()
-        myfont = pg.font.SysFont("monospace", 25)
+        myfont = pg.font.SysFont("chalkduster", 25)
 
         degrees = myfont.render(self.text, 1, (255, 255, 255))
         self.screen.blit(degrees, (self.pos[0], self.pos[1]))

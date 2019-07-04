@@ -32,13 +32,39 @@ bg = Background(win, scene)
 choose_your_product_label = Label(win, scene, "Escolha seu produto", [100, 0])
 
 button_group = ButtonGroup(win, scene)
-product_1_button = Button(win, scene, Product('normal', 1, 'product_1.png'), [50, 50], [100, 100], button_group)
-product_2_button = Button(win, scene, Product('normal', 1, 'product_2.png'), [150, 50], [100, 100], button_group)
+product_1_button = Button(win, scene, [50, 50], [100, 100], 'product_1.png', button_group)
+product_1_button.is_pressed = True
+product_1_button.product = Product('normal', 1)
+
+product_2_button = Button(win, scene, [150, 50], [100, 100], 'product_2.png', button_group)
+product_2_button.product = Product('normal', 1)
+
+
+button_group1 = ButtonGroup(win, scene)
+buy_button = Button(win, scene, [50, 300], [150, 70], 'compra.png', button_group1)
+buy_button.is_pressed = True
+sale_button = Button(win, scene, [260, 300], [150, 70], 'venda.png', button_group1)
+
+button_group2 = ButtonGroup(win, scene)
+consumer_button = Button(win, scene, [30, 420], [100, 70], 'consumidor.png', button_group2)
+consumer_button.is_pressed = True
+distributor_button = Button(win, scene, [140, 420], [100, 70], 'distribuidor.png', button_group2)
+varejo_button = Button(win, scene, [250, 420], [100, 60], 'varejo.png', button_group2)
+simple_button = Button(win, scene, [360, 420], [100, 60], 'simples.png', button_group2)
+
+calculate_button = Button(win, scene, [240 - 75, 510], [150, 70], 'calculate.png', ButtonGroup(scene, win))
 
 add_node(bg)
 add_node(choose_your_product_label)
 add_node(product_1_button)
 add_node(product_2_button)
+add_node(sale_button)
+add_node(buy_button)
+add_node(consumer_button)
+add_node(distributor_button)
+add_node(varejo_button)
+add_node(simple_button)
+add_node(calculate_button)
 
 while is_running:
     for event in pg.event.get():
