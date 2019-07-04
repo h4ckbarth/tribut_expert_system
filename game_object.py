@@ -1,7 +1,7 @@
 class GameObject:
 
-    def __init__(self, win, scene):
-         self.screen = win
+    def __init__(self, screen, scene):
+         self.screen = screen
          self.scene = scene
 
     def update(self):

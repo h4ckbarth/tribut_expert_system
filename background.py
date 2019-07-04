@@ -1,8 +1,8 @@
 import pygame as pg
-from GameObject import GameObject
+from game_object import GameObject
 
 class Background(GameObject):
-    image = pg.image.load("images/background.png")
+    image = pg.image.load("images/background.jpg")
     pg.init()
 
     def update(self):
