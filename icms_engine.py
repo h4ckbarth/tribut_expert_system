@@ -251,3 +251,15 @@ class IcmsEngine(KnowledgeEngine):
             self.declare(TributBaseFact(icms_cst="40"))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="60"))
+
+    # IPI - Compras
+    @Rule(TributBaseFact(tp_mvto='compra'),
+          TributBaseFact(car_trib='industria'),
+          TributBaseFact(codNCM=MATCH.codNCM), salience=10)
+    def ipi_compras(self, codNCM):
+        if codNCM in ('22030000'):
+            self.declare(TributBaseFact(ipi_cst="00"))  #49 - Outras Entradas
+            self.declare(TributBaseFact(ipi_aliquota=4.8))
+        elif codNCM in ('22041010'):
+            self.declare(TributBaseFact(icms_cst="00"))
+            self.declare(TributBaseFact(ipi_aliquota=10))

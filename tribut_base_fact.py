@@ -13,10 +13,15 @@ class TributBaseFact(Fact):
     icms_mva = Field(float, mandatory=False)
     icms_st_aliquota = Field(float, mandatory=False)
 
+    pis_cst = Field(str, mandatory=False)
+    pis_aliquota = Field(float, mandatory=False)
+    pis_natureza = Field(str, mandatory=False)
+
     cofins_cst = Field(str, mandatory=False)
     cofins_aliquota = Field(float, mandatory=False)
     cofins_natureza = Field(str, mandatory=False)
 
-
+    ipi_aliquota = Field(float, mandatory=False)
+    ipi_cst = Field(str, mandatory=False)
 
     pass
