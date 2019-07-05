@@ -80,18 +80,22 @@ def populate_products():
 
 
 def populate_other_buttons():
-    buy_button = Button(win, scene, [50, 300], [150, 70], 'compra.png', button_group1)
+    buy_button = Button(win, scene, [30, 300], [100, 60], 'compra.png', button_group1)
     buy_button.is_pressed = True
-    sale_button = Button(win, scene, [260, 300], [150, 70], 'venda.png', button_group1)
+    sale_button = Button(win, scene, [140, 300], [100, 60], 'venda.png', button_group1)
+    boni_button = Button(win, scene, [250, 300], [100, 60], 'bonificacao.png', button_group1)
+    losts_button = Button(win, scene, [360, 300], [100, 60], 'perdas.png', button_group1)
 
     consumer_button = Button(win, scene, [30, 420], [100, 70], 'consumidor.png', button_group2)
     consumer_button.is_pressed = True
     distributor_button = Button(win, scene, [140, 420], [100, 70], 'distribuidor.png', button_group2)
-    varejo_button = Button(win, scene, [250, 420], [100, 60], 'varejo.png', button_group2)
+    varejo_button = Button(win, scene, [250, 420], [100, 60], 'industria.png', button_group2)
     simple_button = Button(win, scene, [360, 420], [100, 60], 'simples.png', button_group2)
 
     add_node(sale_button)
     add_node(buy_button)
+    add_node(boni_button)
+    add_node(losts_button)
     add_node(consumer_button)
     add_node(distributor_button)
     add_node(varejo_button)
@@ -113,7 +117,16 @@ def run_engine():
     product = button_group.product
     engine = IcmsEngine(product)
 
-    tp_mvto = "compra" if button_group1.buttons[0].is_pressed else "venda"
+    tp_mvto = ""
+    if button_group1.buttons[0].is_pressed:
+        tp_mvto = 'compra'
+    elif button_group1.buttons[1].is_pressed:
+        tp_mvto = 'venda'
+    elif button_group1.buttons[2].is_pressed:
+        tp_mvto = 'bonificacao'
+    elif button_group1.buttons[3].is_pressed:
+        tp_mvto = 'perdas'
+
 
     car_trib = ""
 
@@ -122,7 +135,7 @@ def run_engine():
     elif button_group2.buttons[1].is_pressed:
         car_trib = 'distribuidor'
     elif button_group2.buttons[2].is_pressed:
-        car_trib = 'varejo'
+        car_trib = 'industria'
     elif button_group2.buttons[3].is_pressed:
         car_trib = 'simples'
 
