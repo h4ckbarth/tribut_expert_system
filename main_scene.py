@@ -10,6 +10,7 @@ from tribut_base_fact import TributBaseFact
 from product import Product
 from pyknow import *
 from coin import Coin
+from output_label import OutputLabel
 
 def add_node(game_object):
     game_objects.append(game_object)
@@ -121,6 +122,12 @@ def run_engine():
 
 def show_results():
     print(facts)
+    global output_label
+
+    output_label.ncm = button_group.product.ncm_code
+
+
+
 
 pg.init()
 #screen
@@ -131,9 +138,14 @@ is_running = True
 
 game_objects = []
 facts = []
+
+cst = ""
+aliquota = 0.0
+
 button_group = ButtonGroup(win, scene)
 button_group1 = ButtonGroup(win, scene)
 button_group2 = ButtonGroup(win, scene)
+output_label = OutputLabel(win, scene, "", "", "")
 
 setup_ui()
 populate_products()

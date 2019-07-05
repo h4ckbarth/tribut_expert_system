@@ -5,6 +5,8 @@ class IcmsEngine(KnowledgeEngine):
     def __init__(self, product):
         KnowledgeEngine.__init__(self)
         self.product = product
+        self.aliquota = 0.0
+        self.cst = ""
 
     @DefFacts()
     def _initial_action(self):
@@ -72,11 +74,14 @@ class IcmsEngine(KnowledgeEngine):
     def icms_cst_venda_consumidor(self, codNCM):
         if codNCM in ('17049020', '19053100', '19059090', '21069090'):
             self.declare(TributBaseFact(icms_cst="00"))
+            self.cst="00"
         elif codNCM in ('08043000'):
             self.declare(TributBaseFact(icms_cst="40"))
+            self.cst = "40"
             self.declare(TributBaseFact(icms_aliquota=float(0)))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="60"))
+            self.cst = "60"
             self.declare(TributBaseFact(icms_aliquota=float(0)))
 
 
