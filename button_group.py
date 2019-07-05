@@ -6,10 +6,10 @@ class ButtonGroup(GameObject):
     def __init__(self, screen, scene):
         GameObject.__init__(self, screen, scene)
         self.buttons = []
-
-    pg.init()
+        self.product = Product(None, None)
 
     def press_button(self, button):
+        self.product = button.product
         for but in self.buttons:
             if but is not button:
                 but.is_pressed = False

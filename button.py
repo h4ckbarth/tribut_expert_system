@@ -26,6 +26,8 @@ class Button(GameObject):
             if pg.mouse.get_pressed()[0] and self.rect.collidepoint(pg.mouse.get_pos()):
                 self.is_pressed = True
                 self.button_group.press_button(self)
+                if len(self.button_group.buttons) < 2:
+                    self.scene.run_engine()
             else:
                 if len(self.button_group.buttons) < 2:
                     self.is_pressed = False

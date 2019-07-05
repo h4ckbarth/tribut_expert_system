@@ -260,7 +260,3 @@ class SE_Tribut(KnowledgeEngine):
         else:
             print('Não foi possível definir o CST de COFINS para a operação')
 
-    # COFINS - Transferências
-    @Rule(Fact(tpMvto='transferencia'), salience=9)
-    def cofins_transferencia_cst(self, ncm):
-        self.r_cofins_cst = "70"

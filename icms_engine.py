@@ -7,12 +7,12 @@ class IcmsEngine(KnowledgeEngine):
         self.product = product
 
     def choose_cst(self):
-        if self.product.cst == 'normal':
+        if self.product.cst_icms == 'normal':
             self.declare(TributBaseFact(icms_cst="00"))
-        elif self.product.cst == 'exempt':
+        elif self.product.cst_icms == 'exempt':
             self.declare(TributBaseFact(icms_cst="40"))
             self.declare(TributBaseFact(icms_aliquota=float(0)))
-        elif self.product.cst == 'icms_st':
+        elif self.product.cst_icms == 'icms_st':
             self.declare(TributBaseFact(icms_cst="60"))
             self.declare(TributBaseFact(icms_aliquota=float(0)))
 
@@ -74,15 +74,10 @@ class IcmsEngine(KnowledgeEngine):
         self.choose_cst()
 
 
+
     @Rule(TributBaseFact(tp_mvto='compra'),
           TributBaseFact(car_trib='simples'),
           TributBaseFact(icms_cst="00"), salience=9)
-    def icms_aliquota_venda_distribuidor(self):
+    def icms_aliquota_compra_simples(self):
         self.choose_range_list()
 
-
-    @Rule(TributBaseFact(tp_mvto='compra'),
-          TributBaseFact(car_trib='simples'),
-          TributBaseFact(icms_cst="20"), salience=9)
-    def icms_aliquota_venda_distribuidor(self):
-        self.choose_range_list()
