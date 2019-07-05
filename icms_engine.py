@@ -1,5 +1,5 @@
 from pyknow import *
-from tribut_expert_system.tribut_base_fact import TributBaseFact
+from tribut_base_fact import TributBaseFact
 
 class IcmsEngine(KnowledgeEngine):
     def __init__(self, product):
@@ -13,7 +13,7 @@ class IcmsEngine(KnowledgeEngine):
     # Definição de Pauta Fiscal - regra final, somente se a tributação for de ICMS-ST
     @Rule(TributBaseFact(codbarras=MATCH.codbarras), salience=5)
     def icms_pauta(self, codbarras):
-        valor = 0
+        valor = float(0)
         if codbarras == "7896045501502":
             valor = 3.06
         elif codbarras == '7896045501489':
@@ -63,7 +63,7 @@ class IcmsEngine(KnowledgeEngine):
           TributBaseFact(icms_cst='00'), salience=6)
     def icms_origem(self, origem):
         if origem in ('1', '2', '3', '6', '7'):
-            self.declare(TributBaseFact(icms_aliquota=4))
+            self.declare(TributBaseFact(icms_aliquota=float(4)))
 
     # ICMS - Vendas
     # Venda consumidor
@@ -74,10 +74,10 @@ class IcmsEngine(KnowledgeEngine):
             self.declare(TributBaseFact(icms_cst="00"))
         elif codNCM in ('08043000'):
             self.declare(TributBaseFact(icms_cst="40"))
-            self.declare(TributBaseFact(icms_aliquota=0))
+            self.declare(TributBaseFact(icms_aliquota=float(0)))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="60"))
-            self.declare(TributBaseFact(icms_aliquota=0))
+            self.declare(TributBaseFact(icms_aliquota=float(0)))
 
 
     # Venda distribuidor
@@ -89,10 +89,10 @@ class IcmsEngine(KnowledgeEngine):
             self.declare(TributBaseFact(icms_cst="00"))
         elif codNCM in ('08043000'):
             self.declare(TributBaseFact(icms_cst="40"))
-            self.declare(TributBaseFact(icms_aliquota=0))
+            self.declare(TributBaseFact(icms_aliquota=float(0)))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="60"))
-            self.declare(TributBaseFact(icms_aliquota=0))
+            self.declare(TributBaseFact(icms_aliquota=float(0)))
 
 
     #Venda CST 00
@@ -147,12 +147,12 @@ class IcmsEngine(KnowledgeEngine):
         elif codNCM in ('19053100', '19059090'):
             self.declare(TributBaseFact(icms_cst="00"))
             if codNCM in ('19053100'):
-                self.declare(TributBaseFact(icms_aliquota=12))
+                self.declare(TributBaseFact(icms_aliquota=float(12)))
             elif codNCM in ('19059090'):
-                self.declare(TributBaseFact(icms_aliquota=7))
+                self.declare(TributBaseFact(icms_aliquota=float(7)))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="20"))
-            self.declare(TributBaseFact(icms_aliquota=18))
+            self.declare(TributBaseFact(icms_aliquota=float(18)))
             self.declare(TributBaseFact(icms_reducao=33.33))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="60"))
@@ -160,24 +160,24 @@ class IcmsEngine(KnowledgeEngine):
 
     @Rule(TributBaseFact(tp_mvto='compra'),
           TributBaseFact(car_trib='industria'),
-          TributBaseFact(codNCM=MATCH.codNCM), salience=10)
+          TributBaseFact(codNCM=MATCH.codNCM), salience=float(10))
     def icms_compra_industria(self, codNCM):
         if codNCM in ('08043000'):
             self.declare(TributBaseFact(icms_cst="40"))
         elif codNCM in ('19053100', '19059090'):
             self.declare(TributBaseFact(icms_cst="00"))
             if codNCM in ('19053100'):
-                self.declare(TributBaseFact(icms_aliquota=12))
+                self.declare(TributBaseFact(icms_aliquota=float(12)))
             elif codNCM in ('19059090'):
-                self.declare(TributBaseFact(icms_aliquota=7))
+                self.declare(TributBaseFact(icms_aliquota=float(7)))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="20"))
-            self.declare(TributBaseFact(icms_aliquota=18))
+            self.declare(TributBaseFact(icms_aliquota=float(18)))
             self.declare(TributBaseFact(icms_reducao=33.33))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="10"))
             self.declare(TributBaseFact(icms_mva=140))
-            self.declare(TributBaseFact(icms_st_aliquota=29))
+            self.declare(TributBaseFact(icms_st_aliquota=float(29)))
 
     # ICMS - Bonificação
     @Rule(TributBaseFact(tp_mvto='bonificacao'),
@@ -189,7 +189,7 @@ class IcmsEngine(KnowledgeEngine):
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="10"))
             self.declare(TributBaseFact(icms_mva=140))
-            self.declare(TributBaseFact(icms_st_aliquota=29))
+            self.declare(TributBaseFact(icms_st_aliquota=float(29)))
 
     @Rule(TributBaseFact(tp_mvto='bonificacao'),
           TributBaseFact(car_trib='distribuidor'),
@@ -200,12 +200,12 @@ class IcmsEngine(KnowledgeEngine):
         elif codNCM in ('19053100', '19059090'):
             self.declare(TributBaseFact(icms_cst="00"))
             if codNCM in ('19053100'):
-                self.declare(TributBaseFact(icms_aliquota=12))
+                self.declare(TributBaseFact(icms_aliquota=float(12)))
             elif codNCM in ('19059090'):
-                self.declare(TributBaseFact(icms_aliquota=7))
+                self.declare(TributBaseFact(icms_aliquota=float(7)))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="20"))
-            self.declare(TributBaseFact(icms_aliquota=18))
+            self.declare(TributBaseFact(icms_aliquota=float(18)))
             self.declare(TributBaseFact(icms_reducao=33.33))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="60"))
@@ -219,17 +219,17 @@ class IcmsEngine(KnowledgeEngine):
         elif codNCM in ('19053100', '19059090'):
             self.declare(TributBaseFact(icms_cst="00"))
             if codNCM in ('19053100'):
-                self.declare(TributBaseFact(icms_aliquota=12))
+                self.declare(TributBaseFact(icms_aliquota=float(12)))
             elif codNCM in ('19059090'):
-                self.declare(TributBaseFact(icms_aliquota=7))
+                self.declare(TributBaseFact(icms_aliquota=float(7)))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="20"))
-            self.declare(TributBaseFact(icms_aliquota=18))
+            self.declare(TributBaseFact(icms_aliquota=float(18)))
             self.declare(TributBaseFact(icms_reducao=33.33))
         elif codNCM in ('22030000'):
             self.declare(TributBaseFact(icms_cst="10"))
-            self.declare(TributBaseFact(icms_mva=140))
-            self.declare(TributBaseFact(icms_st_aliquota=29))
+            self.declare(TributBaseFact(icms_mva=float(140)))
+            self.declare(TributBaseFact(icms_st_aliquota=float(29)))
 
 
     # ICMS - Perdas
@@ -238,14 +238,14 @@ class IcmsEngine(KnowledgeEngine):
     def icms_perdas(self, codNCM):
         if codNCM in ('19059090'):
             self.declare(TributBaseFact(icms_cst="00"))
-            self.declare(TributBaseFact(icms_aliquota=7))
+            self.declare(TributBaseFact(icms_aliquota=float(7)))
         elif codNCM in ('17049020', '19053100', '21069090'):
             self.declare(TributBaseFact(icms_cst="20"))
             if codNCM in ('19053100'):
-                self.declare(TributBaseFact(icms_aliquota=12))
+                self.declare(TributBaseFact(icms_aliquota=float(12)))
                 self.declare(TributBaseFact(icms_reducao=41.6667))
             elif codNCM in ('17049020', '21069090'):
-                self.declare(TributBaseFact(icms_aliquota=18))
+                self.declare(TributBaseFact(icms_aliquota=float(18)))
                 self.declare(TributBaseFact(icms_reducao=33.33))
         elif codNCM in ('08043000'):
             self.declare(TributBaseFact(icms_cst="40"))

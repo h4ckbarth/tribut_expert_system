@@ -1,6 +1,5 @@
 from pyknow import *
 class TributBaseFact(Fact):
-    codbarras = Field(str, mandatory=False)
     ncm_code = Field(str, mandatory=False)
     regime_empresa = Field(str, mandatory=False)
     tp_mvto = Field(str, mandatory=False)

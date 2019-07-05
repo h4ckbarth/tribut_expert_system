@@ -6,7 +6,7 @@ class ButtonGroup(GameObject):
     def __init__(self, screen, scene):
         GameObject.__init__(self, screen, scene)
         self.buttons = []
-        self.product = Product(None, None)
+        self.product = Product(None, None, None, None)
 
     def press_button(self, button):
         self.product = button.product

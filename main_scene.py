@@ -27,28 +27,28 @@ def populate_products():
 
     product_1_button = Button(win, scene, [50, 50], [100, 100], 'product_1.png', button_group)
     product_1_button.is_pressed = True
-    product_1_button.product = Product('normal', 1)
+    product_1_button.product = Product('normal', 1, '7896002307482', '19059090')
 
     product_2_button = Button(win, scene, [150, 50], [100, 100], 'product_2.png', button_group)
-    product_2_button.product = Product('normal', 2)
+    product_2_button.product = Product('normal', 2, '7891048049006', '21069029')
 
     product_3_button = Button(win, scene, [250, 50], [100, 100], 'product_3.gif', button_group)
-    product_3_button.product = Product('normal', 3)
+    product_3_button.product = Product('normal', 3, '7896022205218', '19053100')
 
     product_4_button = Button(win, scene, [350, 50], [100, 100], 'product_4.png', button_group)
-    product_4_button.product = Product('normal', 4)
+    product_4_button.product = Product('normal', 4, '7891118009527', '17049020')
 
     product_5_button = Button(win, scene, [50, 150], [100, 100], 'product_5.png', button_group)
-    product_5_button.product = Product('exempt', None)
+    product_5_button.product = Product('exempt', None, '0000000000079', '08043000')
 
     product_6_button = Button(win, scene, [150, 150], [100, 100], 'product_6.png', button_group)
-    product_6_button.product = Product('exempt', None)
+    product_6_button.product = Product('exempt', None, '7896183900809', '10063021')
 
     product_7_button = Button(win, scene, [250, 150], [100, 100], 'product_7.png', button_group)
-    product_7_button.product = Product('icms_st', None)
+    product_7_button.product = Product('icms_st', None, '7896062802354', '22011000')
 
     product_8_button = Button(win, scene, [350, 150], [100, 100], 'product_8.png', button_group)
-    product_8_button.product = Product('icms_st', None)
+    product_8_button.product = Product('icms_st', None, '7897395040307', '22030000')
 
     add_node(product_1_button)
     add_node(product_2_button)
@@ -109,6 +109,8 @@ def run_engine():
 
     engine.declare(TributBaseFact(tp_mvto=tp_mvto))
     engine.declare(TributBaseFact(car_trib=car_trib))
+    engine.declare(TributBaseFact(codNCM=product.ncm_code))
+    engine.declare(TributBaseFact(codbarras=product.cod_barras))
 
     engine.run()
 
