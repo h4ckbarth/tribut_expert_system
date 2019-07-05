@@ -14,7 +14,7 @@ class IcmsEngine(KnowledgeEngine):
             self.declare(TributBaseFact(icms_aliquota=float(0)))
         elif self.product.cst_icms == 'icms_st':
             self.declare(TributBaseFact(icms_cst="60"))
-            self.declare(TributBaseFact(icms_aliquota=float(0)))
+            self.declare(TributBaseFact(icms_aliquota=float(0)) )
 
     def choose_range_list(self):
         # Escolhe a aliquota pelas faixas de imposto
