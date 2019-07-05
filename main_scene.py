@@ -16,12 +16,30 @@ def add_node(game_object):
     game_objects.append(game_object)
 
 
+def button_rules():
+    if button_group1.buttons[0].is_pressed or button_group1.buttons[2].is_pressed:
+        button_group2.buttons[0].is_showing = False
+    else:
+        button_group2.buttons[0].is_showing = True
+
+    if button_group1.buttons[3].is_pressed:
+        button_group2.buttons[1].is_showing = False
+        button_group2.buttons[2].is_showing = False
+        button_group2.buttons[3].is_showing = False
+
+    else:
+        button_group2.buttons[1].is_showing = True
+        button_group2.buttons[2].is_showing = True
+        button_group2.buttons[3].is_showing = True
+
+
 def draw():
     win.fill((0, 0, 0))
 
     for i in game_objects:
         i.draw()
 
+    button_rules()
     pg.display.flip()
 
 def populate_products():
@@ -90,20 +108,22 @@ def setup_ui():
 
 
 def run_engine():
+    output_label.is_showing = False
     coin.start_animating()
     product = button_group.product
     engine = IcmsEngine(product)
 
     tp_mvto = "compra" if button_group1.buttons[0].is_pressed else "venda"
+
     car_trib = ""
 
-    if button_group2.buttons[0]:
+    if button_group2.buttons[0].is_pressed:
         car_trib = 'consumidor'
-    elif button_group2.buttons[1]:
+    elif button_group2.buttons[1].is_pressed:
         car_trib = 'distribuidor'
-    elif button_group2.buttons[2]:
+    elif button_group2.buttons[2].is_pressed:
         car_trib = 'varejo'
-    elif button_group2.buttons[3]:
+    elif button_group2.buttons[3].is_pressed:
         car_trib = 'simples'
 
     engine.reset()
@@ -115,16 +135,23 @@ def run_engine():
 
     engine.run()
 
-    global facts
+    global facts, cst, aliquota
     facts = engine.facts
+
+    cst = engine.cst
+    aliquota = engine.aliquota
+
 
 
 
 def show_results():
     print(facts)
-    global output_label
+    global output_label, cst, aliquota
 
     output_label.ncm = button_group.product.ncm_code
+    output_label.cst = cst
+    output_label.aliquota = aliquota
+    output_label.is_showing = True
 
 
 
@@ -145,7 +172,6 @@ aliquota = 0.0
 button_group = ButtonGroup(win, scene)
 button_group1 = ButtonGroup(win, scene)
 button_group2 = ButtonGroup(win, scene)
-output_label = OutputLabel(win, scene, "", "", "")
 
 setup_ui()
 populate_products()
@@ -154,6 +180,9 @@ populate_other_buttons()
 coin = Coin(win, scene, [240 - 40, 600], [80, 80])
 coin.is_showing = True
 add_node(coin)
+
+output_label = OutputLabel(win, scene, "", "", "")
+add_node(output_label)
 
 
 

@@ -17,6 +17,7 @@ class Button(GameObject):
         self.button_image = pg.image.load("images/" + self.image)
         self.button_image = pg.transform.scale(self.button_image, (self.size[0] + 5, self.size[1] + 5))
         self.is_pressed = False
+        self.is_showing = True
 
 
 
@@ -34,8 +35,11 @@ class Button(GameObject):
 
 
     def draw(self):
-        if self.is_pressed:
-            self.screen.blit(self.pressed_image, (self.pos[0], self.pos[1]))
-        self.screen.blit(self.button_image, (self.pos[0], self.pos[1]))
+        if self.is_showing:
+            if self.is_pressed:
+                self.screen.blit(self.pressed_image, (self.pos[0], self.pos[1]))
+            self.screen.blit(self.button_image, (self.pos[0], self.pos[1]))
 
-        self.update()
+            self.update()
+
+
