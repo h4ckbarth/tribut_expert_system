@@ -6,11 +6,15 @@ from button import Button
 from product import Product
 from button_group import ButtonGroup
 from icms_engine import IcmsEngine
+from cofins_engine import CofinsEngine
 from tribut_base_fact import TributBaseFact
 from product import Product
 from pyknow import *
 from coin import Coin
 from output_label import OutputLabel
+
+from Aula2_Exemplos import out
+
 
 def add_node(game_object):
     game_objects.append(game_object)
@@ -45,7 +49,6 @@ def draw():
 def populate_products():
 
     product_1_button = Button(win, scene, [50, 50], [100, 100], 'product_1.png', button_group)
-    product_1_button.is_pressed = True
     product_1_button.product = Product('normal', 1, '7896002307482', '19059090')
 
     product_2_button = Button(win, scene, [150, 50], [100, 100], 'product_2.png', button_group)
@@ -116,6 +119,7 @@ def run_engine():
     coin.start_animating()
     product = button_group.product
     engine = IcmsEngine(product)
+    engine_cofins = CofinsEngine(product)
 
     tp_mvto = ""
     if button_group1.buttons[0].is_pressed:
@@ -146,24 +150,45 @@ def run_engine():
     engine.declare(TributBaseFact(codNCM=product.ncm_code))
     engine.declare(TributBaseFact(codbarras=product.cod_barras))
 
-    engine.run()
+    engine_cofins.reset()
+    engine_cofins.declare(TributBaseFact(tp_mvto=tp_mvto))
+    engine_cofins.declare(TributBaseFact(car_trib=car_trib))
+    engine_cofins.declare(TributBaseFact(codNCM=product.ncm_code))
+    engine_cofins.declare(TributBaseFact(codbarras=product.cod_barras))
 
-    global facts, cst, aliquota
+    engine.run()
+    engine_cofins.run()
+
+    global facts, cst, aliquota, facts_cofins, aliquota_cofins, cst_cofins, aliquota_pis, nat_pis_cofins, icms_reducao
     facts = engine.facts
+    facts_cofins = engine_cofins.facts
 
     cst = engine.cst
     aliquota = engine.aliquota
+    icms_reducao = engine.reducao
+    aliquota_cofins = engine_cofins.aliquota_cofins
+    cst_cofins = engine_cofins.cofins_cst
+    aliquota_pis = engine_cofins.aliquota_pis
+    nat_pis_cofins = engine_cofins.cofins_natureza
 
 
 
 
 def show_results():
+    print("ICMS - Engine")
     print(facts)
-    global output_label, cst, aliquota
+    print("PIS/COFINS - Engine")
+    print(facts_cofins)
+    global output_label, cst, aliquota, aliquota_cofins, cst_cofins, aliquota_pis, nat_pis_cofins, icms_reducao
 
     output_label.ncm = button_group.product.ncm_code
     output_label.cst = cst
     output_label.aliquota = aliquota
+    output_label.icms_reducao = icms_reducao
+    output_label.aliquota_cofins = aliquota_cofins
+    output_label.cst_cofins = cst_cofins
+    output_label.aliquota_pis = aliquota_pis
+    output_label.nat_pis_cofins = nat_pis_cofins
     output_label.is_showing = True
 
 
@@ -194,7 +219,7 @@ coin = Coin(win, scene, [240 - 40, 600], [80, 80])
 coin.is_showing = True
 add_node(coin)
 
-output_label = OutputLabel(win, scene, "", "", "")
+output_label = OutputLabel(win, scene, "", "", "", 0, "", 0, "", 0)
 add_node(output_label)
 
 
